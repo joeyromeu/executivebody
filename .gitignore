@@ -1,0 +1,9 @@
+*.mp4
+*.mkv
+*.wav
+*.onnx
+*.png
+*.jpg
+*.webp
+*.avif
+__pycache__/
