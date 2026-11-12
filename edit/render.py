@@ -391,10 +391,9 @@ class Item:
 def build():
     global TICK, CROSS
     TICK, CROSS = tick_icon(96), cross_icon(96)
-    u = {k: load(f"user/{k}.png") for k in ["u1", "u2", "u3", "u4", "u5", "u6"]}
+    u = {k: load(f"user/{k}.png") for k in ["u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8"]}
     c = {k: load(f"commons/full/{k}.jpg") for k in ["oats", "eggs", "chicken", "salmon", "bread", "fried", "deadlift", "mealprep"]}
 
-    topless = u["u2"].crop((0, 0, 196, 350))           # 1998 half of the then/now image, labels cropped off
     martial = u["u6"].crop((0, 0, u["u6"].width, 800))  # drop the "publicity picture" watermark strip
     breakfast = plate_split(c["oats"], c["eggs"]) if c["eggs"] else plate_cover(c["oats"])
     lift = plate_cover(c["deadlift"], dim=0.42) if c["deadlift"] else plate_cover(u["u5"], dim=0.32)
@@ -452,8 +451,8 @@ def build():
     banner.alpha_composite(banner_inner, (45, 27))
 
     items = [
-        # 1. hook - topless 1998
-        Item(0.00, 3.82, "photo", plate_card(topless, 1060, cy=0.42, sharpen=True)),
+        # 1. hook - topless gym shot
+        Item(0.00, 3.82, "photo", plate_cover(u["u7"], cx=0.5, cy=0.3)),
         # 2. "to look like Wesley Snipes in Blade, you'd have to live like him"
         Item(3.82, 6.30, "photo", plate_cover(u["u3"], cx=0.52, cy=0.42),
              [tag(5.56, "LIVE LIKE HIM", box=WHITE)]),
@@ -477,9 +476,11 @@ def build():
               Pop(22.32, not6, W / 2 - 150, HEAD_Y + 165), Pop(22.96, not12, W / 2 + 150, HEAD_Y + 165)]),
         # 8. "and that's because of his baseline"
         Item(24.90, 26.66, "photo", plate_card(u["u2"], 820, cy=0.47), [tag(25.94, "HIS BASELINE")], kb=(1.0, 1.03)),
-        # 9. training every day
-        Item(26.66, 32.26, "photo", plate_cover(martial, cx=0.5, cy=0.4),
-             [head(26.94, "TRAINS ~EVERY DAY", size=72, box=WHITE, fill=BLACK),
+        # 9a. "he trains pretty much every day" - "I'm 63, here are my fitness secrets"
+        Item(26.66, 28.12, "photo", plate_card(u["u8"], 640, cy=0.42), kb=(1.0, 1.04)),
+        # 9b. training list
+        Item(28.12, 32.26, "photo", plate_cover(martial, cx=0.5, cy=0.4),
+             [head(28.12, "TRAINS ~EVERY DAY", size=72, box=WHITE, fill=BLACK),
               chip(28.12, "MARTIAL ARTS", 470), chip(28.76, "STRENGTH", 575), chip(29.10, "YOGA", 680),
               chip(29.50, "MOBILITY", 785), chip(30.66, "10K STEPS / DAY", 890)]),
         # 10. same meals on repeat - breakfast
